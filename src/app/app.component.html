@@ -1,0 +1,317 @@
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="topbar">
+  <nav class="nav-shell" aria-label="Primary navigation">
+    <a class="brand" href="#home" [attr.aria-label]="profile.name + ' home'"
+      >{{ profile.initials }}<span>.</span></a
+    >
+    <div id="primary-links" class="nav-links" [class.open]="menuOpen()">
+      @for (item of nav; track item.id) {
+        <a
+          [href]="'#' + item.id"
+          [class.active]="activeSection() === item.id"
+          [attr.aria-current]="activeSection() === item.id ? 'location' : null"
+          (click)="closeMenu()"
+          >{{ item.label }}</a
+        >
+      }
+    </div>
+    <a class="nav-cta" [href]="'mailto:' + profile.email"
+      >Let's talk <app-icon name="arrow" [size]="16"
+    /></a>
+    <button
+      type="button"
+      class="menu-toggle"
+      [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="primary-links"
+      (click)="menuOpen.set(!menuOpen())"
+    >
+      <app-icon [name]="menuOpen() ? 'close' : 'menu'" />
+    </button>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="hero section-shell" id="home">
+    <div class="hero-copy">
+      <div class="availability"><span></span>{{ profile.availability }}</div>
+      <p class="hello">Hi, I'm</p>
+      <h1>
+        <span>{{ profile.name }}</span>
+      </h1>
+      <h2>{{ profile.role }}</h2>
+      <p class="hero-text">{{ profile.introduction }}</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#projects"
+          >View my work <app-icon name="arrow" [size]="18"
+        /></a>
+        <a class="button secondary" href="#resume"
+          >View résumé <app-icon name="document" [size]="18"
+        /></a>
+      </div>
+      <div class="socials" aria-label="Professional profiles">
+        <a
+          [href]="profile.social.github"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+          ><app-icon name="github" [size]="18"
+        /></a>
+        <a
+          [href]="profile.social.linkedin"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          ><app-icon name="linkedin" [size]="18"
+        /></a>
+        <a
+          [href]="profile.social.leetcode"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="leetcode-link"
+          aria-label="LeetCode profile"
+          ><app-icon name="code" [size]="18"
+        /></a>
+        <a [href]="'mailto:' + profile.email" aria-label="Email"
+          ><app-icon name="mail" [size]="18"
+        /></a>
+        <span
+          ><app-icon name="location" [size]="16" />{{ profile.location }}</span
+        >
+      </div>
+    </div>
+    <app-profile-photo
+      [permanentUrl]="profile.photoUrl"
+      [name]="profile.name"
+      [initials]="profile.initials"
+      [allowPicker]="profile.enablePhotoPicker"
+    />
+    <a class="scroll-cue" href="#about"
+      ><app-icon name="down" [size]="16" />Scroll to explore</a
+    >
+  </section>
+
+  <section class="about section-shell" id="about">
+    <app-section-heading
+      label="ABOUT"
+      title="Engineering with a"
+      accent="practical edge."
+    />
+    <div class="about-grid">
+      <div class="about-copy">
+        @for (paragraph of profile.about; track paragraph) {
+          <p>{{ paragraph }}</p>
+        }
+      </div>
+      <div class="stat-grid">
+        @for (stat of profile.stats; track stat.label) {
+          <div>
+            <strong>{{ stat.value }}</strong
+            ><span>{{ stat.label }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="skills section-shell" id="skills">
+    <app-section-heading
+      label="TECHNICAL SKILLS"
+      title="Tools that build"
+      accent="reliable systems."
+      [centered]="true"
+    />
+    <div class="skill-grid">
+      @for (skill of profile.skills; track skill.title) {
+        <article class="skill-card">
+          <div class="skill-icon">
+            <app-icon [name]="skill.icon" [size]="23" />
+          </div>
+          <h3>{{ skill.title }}</h3>
+          <div class="skill-tags">
+            @for (item of skill.items; track item) {
+              <span>{{ item }}</span>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="experience section-shell" id="experience">
+    <app-section-heading
+      label="WORK EXPERIENCE"
+      title="Experience that"
+      accent="ships."
+    />
+    <div class="timeline">
+      @for (job of profile.experience; track job.company) {
+        <article class="timeline-item" [class.current]="job.current">
+          <div class="timeline-date">
+            <span>{{ job.current ? "Current role" : "Previous role" }}</span>
+            <p>{{ job.date }}</p>
+          </div>
+          <div class="timeline-marker">
+            <app-icon name="briefcase" [size]="19" />
+          </div>
+          <div class="timeline-content">
+            <h3>{{ job.role }}</h3>
+            <h4>{{ job.company }} · {{ job.location }}</h4>
+            <p>{{ job.summary }}</p>
+            <ul>
+              @for (bullet of job.bullets; track bullet) {
+                <li>{{ bullet }}</li>
+              }
+            </ul>
+            <div class="inline-tags">
+              @for (tag of job.tags; track tag) {
+                <span>{{ tag }}</span>
+              }
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="projects section-shell" id="projects">
+    <app-section-heading
+      label="FEATURED PROJECTS"
+      title="Real domains."
+      accent="Meaningful solutions."
+      [centered]="true"
+    />
+    <div class="project-grid">
+      @for (project of profile.projects; track project.number) {
+        <article [class]="'project-card ' + project.tone">
+          <div class="project-top">
+            <span>{{ project.label }}</span
+            ><strong>{{ project.number }}</strong>
+          </div>
+          <div class="project-visual" aria-hidden="true">
+            <div class="service-map">
+              <span>UI</span><i></i><span>API</span><i></i><span>Services</span
+              ><i></i><span>Data</span>
+            </div>
+          </div>
+          <h3>{{ project.title }}</h3>
+          <p>{{ project.description }}</p>
+          <ul>
+            @for (point of project.highlights; track point) {
+              <li><app-icon name="check" [size]="15" />{{ point }}</li>
+            }
+          </ul>
+          <div class="inline-tags">
+            @for (tech of project.stack; track tech) {
+              <span>{{ tech }}</span>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="coding section-shell" id="leetcode">
+    <div class="coding-card grid gap-8 md:grid-cols-[1fr_auto] items-center">
+      <div>
+        <p class="eyebrow text-amber-300">PROBLEM SOLVING</p>
+        <h2>{{ profile.coding.title }}</h2>
+        <p class="max-w-2xl mt-5 text-base leading-8 text-slate-400">
+          {{ profile.coding.description }}
+        </p>
+        <div class="inline-tags mt-6">
+          @for (topic of profile.coding.topics; track topic) {
+            <span>{{ topic }}</span>
+          }
+        </div>
+      </div>
+      <a
+        class="leetcode-button inline-flex items-center justify-center gap-3"
+        [href]="profile.social.leetcode"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <app-icon name="code" [size]="24" />View LeetCode<app-icon
+          name="arrow"
+          [size]="18"
+        />
+      </a>
+    </div>
+  </section>
+
+  <section class="resume section-shell" id="resume">
+    <div class="resume-card grid gap-9 md:grid-cols-[auto_1fr] items-center">
+      <div class="resume-emblem" aria-hidden="true">
+        <app-icon name="document" [size]="68" /><span>RÉSUMÉ</span>
+      </div>
+      <div>
+        <p class="eyebrow">RÉSUMÉ</p>
+        <h2>{{ profile.resume.title }}</h2>
+        <p class="text-base leading-8 text-slate-400 mt-5">
+          {{ profile.resume.description }}
+        </p>
+        <div class="inline-tags mt-5">
+          @for (highlight of profile.resume.highlights; track highlight) {
+            <span>{{ highlight }}</span>
+          }
+        </div>
+        <div class="flex flex-wrap gap-3 mt-8">
+          <a
+            class="button primary"
+            [href]="profile.resume.fileUrl"
+            [attr.download]="profile.resume.downloadName"
+            ><app-icon name="download" [size]="18" />Download résumé</a
+          >
+          <a
+            class="button secondary"
+            [href]="profile.resume.fileUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            >View PDF<app-icon name="arrow" [size]="18"
+          /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact section-shell" id="contact">
+    <div class="contact-card">
+      <app-icon name="sparkles" [size]="28" class="contact-spark" />
+      <p>START A CONVERSATION</p>
+      <h2>Let’s build something <span>useful.</span></h2>
+      <p class="contact-copy">
+        I’m interested in Java backend and full-stack opportunities where I can
+        contribute to real product and engineering challenges.
+      </p>
+      <a class="contact-email" [href]="'mailto:' + profile.email"
+        ><app-icon name="mail" />{{ profile.email }}<app-icon name="arrow"
+      /></a>
+      <div class="contact-links flex-wrap">
+        <a
+          [href]="profile.social.github"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><app-icon name="github" [size]="17" />GitHub</a
+        >
+        <a
+          [href]="profile.social.linkedin"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><app-icon name="linkedin" [size]="17" />LinkedIn</a
+        >
+        <a
+          [href]="profile.social.leetcode"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><app-icon name="code" [size]="17" />LeetCode</a
+        >
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer section-shell">
+  <a class="brand" href="#home">{{ profile.initials }}<span>.</span></a>
+  <p>© {{ year }} {{ profile.name }}. Built with intent.</p>
+  <a href="#home">Back to top ↑</a>
+</footer>

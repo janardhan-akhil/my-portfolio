@@ -1,0 +1,7 @@
+node_modules/
+dist/
+portfolio-preview.html
+*.log
+.angular/
+out-tsc/
+.site-package/

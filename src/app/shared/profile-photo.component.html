@@ -1,0 +1,51 @@
+<div class="profile-card">
+  <div class="profile-glow" aria-hidden="true"></div>
+  <div class="profile-frame">
+    @if (photo()) {
+      <img
+        [src]="photo()"
+        [alt]="name()"
+        (error)="onImageError()"
+        width="380"
+        height="475"
+      />
+    } @else {
+      <div class="profile-placeholder" aria-label="Profile picture placeholder">
+        <span>{{ initials() }}</span
+        ><app-icon name="user" [size]="76" />
+      </div>
+    }
+    @if (allowPicker()) {
+      <div class="photo-overlay">
+        <button type="button" (click)="photoInput.click()" [disabled]="busy()">
+          <app-icon name="upload" [size]="16" />
+          {{
+            busy()
+              ? "Preparing photo…"
+              : photo()
+                ? "Change photo"
+                : "Add profile picture"
+          }}
+        </button>
+        <input
+          #photoInput
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          class="hidden"
+          (change)="selectPhoto($event)"
+          aria-label="Choose a profile picture"
+        />
+        @if (preview()) {
+          <button class="remove-photo" type="button" (click)="clearPreview()">
+            Remove preview
+          </button>
+        }
+      </div>
+    }
+  </div>
+  <div class="floating-code" aria-hidden="true">
+    <span>developer</span> = &#123;<br />
+    &nbsp;&nbsp;focus: <b>"full stack"</b><br />&#125;
+  </div>
+  <p class="photo-message" role="status">{{ message() }}</p>
+</div>
