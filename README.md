@@ -1,4 +1,4 @@
-# Boya Janardhan — Angular Portfolio
+# Boya Janardhan — Portfolio
 
 Angular 22.1.4, TypeScript 6.0, Tailwind CSS 4 portfolio.
 
