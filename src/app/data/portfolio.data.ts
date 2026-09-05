@@ -4,7 +4,7 @@ export const portfolio = {
   initials: "BJ",
   role: "Java Full Stack Developer",
   location: "Bangalore, India",
-  email: "boyajanardhan34@gmail.com",
+  email: "boyajanardhan.dev@gmail.com",
   availability: "Open to Java Full Stack & Backend roles",
   introduction:
     "I build secure, scalable applications that connect robust Spring Boot services with intuitive Angular interfaces.",
@@ -16,7 +16,7 @@ export const portfolio = {
     leetcode: "https://leetcode.com/u/JanardhanBoya/",
   },
   resume: {
-    fileUrl: "resume/Janardhan_Java_Full_Stack_Developer_3.4+Years.pdf",
+    fileUrl: "resume/Janardhan_Java_Full_Stack_Developer_4+Years.pdf",
     downloadName: "Boya_Janardhan_Resume.pdf",
     title: "The full picture of my professional journey.",
     description:
@@ -33,7 +33,7 @@ export const portfolio = {
     "My experience spans fashion e-commerce and insurance claims. I care about clear APIs, dependable data flows and software that stays understandable as it grows.",
   ],
   stats: [
-    { value: "3+", label: "Years of experience" },
+    { value: "4+", label: "Years of experience" },
     { value: "6", label: "Enterprise domains" },
     { value: "Full", label: "Stack ownership" },
   ],
@@ -118,6 +118,21 @@ export const portfolio = {
         "Collaborated within Agile delivery and code-review processes.",
       ],
       tags: ["Insurance", "Java", "Spring Boot", "REST APIs"],
+    },
+    {
+      current: false,
+      date: "Aug 2022 — May 2023",
+      role: "Associate",
+      company: "ZETA IT Innovations",
+      location: "Bangalore",
+      summary:
+        "Worked as Associate.",
+      bullets: [
+        "Completed training in Java, SQL, Spring Boot, REST APIs, and Git.",
+        "Contributed to internal development.",
+        "Worked with Java, Spring Boot, REST APIs and relational data.",
+      ],
+      tags: ["Java", "Spring Boot", "REST APIs"],
     },
   ],
   projects: [

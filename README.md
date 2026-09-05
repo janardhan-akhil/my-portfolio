@@ -2,7 +2,7 @@
 
 Angular 22.1.4, TypeScript 6.0, Tailwind CSS 4 portfolio.
 
-**Live site:** https://boya-janardhan-portfolio.netlify.app/
+**Live site:** https://boya-janardhan-my-portfolio.netlify.app/
 
 ## Run locally
 
